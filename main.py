@@ -14,22 +14,22 @@ template = env.get_template('template.html')
 
 excel_data_df = pandas.read_excel(io="wine2.xlsx", na_values='nan', keep_default_na=False)
 categories = excel_data_df['Категория'].unique()
-data_dict = defaultdict(list)
-wine_data = excel_data_df.to_dict(orient="records")
-for i in categories:
-    for dict_wine in wine_data:
-        if i == dict_wine['Категория']:
-            data_dict[i].append(dict_wine)
+wine_categories = defaultdict(list)
+wines_description = excel_data_df.to_dict(orient="records")
+for category in categories:
+    for wine in wines_description:
+        if category == wine['Категория']:
+            wine_categories[category].append(wine)
 
 
-def wine_age():
+def calculate_year():
     start_year = 1920
     current_year = datetime.datetime.today().year
     return current_year - start_year
 
 
-def correct_year():
-    year = wine_age()
+def agree_year_and_noun():
+    year = calculate_year()
     remainder = year % 100
     if remainder == 0 or remainder in range(5, 21):
         return "лет"
@@ -39,10 +39,11 @@ def correct_year():
         return "года"
 
 
-rendered_page = template.render(age=wine_age(), year=correct_year(), data_dict=data_dict)
+rendered_page = template.render(age=calculate_year(), year=agree_year_and_noun(), wine_categories=wine_categories)
 
 with open('index.html', 'w', encoding="utf8") as file:
     file.write(rendered_page)
+
 
 #server = HTTPServer(('0.0.0.0', 8000), SimpleHTTPRequestHandler)
 #server.serve_forever()

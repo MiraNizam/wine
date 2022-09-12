@@ -113,23 +113,27 @@
             </p>
           </div>
         </div>
-        {% for index in data_dict %}
-          <h2 class="d-block">{{index}}</h2>
-            <div class="row">
-              <div class="col-lg-4 mb-5 col-md-6">
-                <div class="wine_v_1 text-center pb-4 pt-5">
-                  <img src=images/{{index.Картинка}} alt="Image" class="img-fluid">
-                  <div>
-                    <h3 class="heading mt-3 mb-3 text-dark">{{index["Название"]}}</h3>
-                    <p>
-                      {{index["Сорт"]}}<br/>
-                      <span class="price">{{index["Цена"]}}</span>
-                    </p>
+        <div class="col-12 section-title text-center mb-5">
+          {% for category in wine_categories %}
+            <h2 class="d-block">{{category}}</h2>
+              <div class="row">
+                {% for wine in wine_categories[category] %}
+                  <div class="col-lg-4 mb-5 col-md-6">
+                    <div class="wine_v_1 text-center pb-4 pt-5">
+                      <img src=images/{{wine.Картинка}} alt="Image" class="img-fluid">
+                      <div>
+                        <h3 class="heading mt-3 mb-3 text-dark">{{wine["Название"]}}</h3>
+                        <p>
+                          Сорт винограда - {{wine["Сорт"]}}<br/>
+                          <span class="price">{{wine["Цена"]}} р.</span>
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                {% endfor %}
               </div>
-            </div>
-        {% endfor %}
+          {% endfor %}
+        </div>
       </div>
     </div>
 
