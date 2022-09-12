@@ -12,7 +12,7 @@ env = Environment(
 
 template = env.get_template('template.html')
 
-excel_data_df = pandas.read_excel(io="wine2.xlsx", na_values='nan', keep_default_na=False)
+excel_data_df = pandas.read_excel(io="wine3.xlsx", na_values='nan', keep_default_na=False)
 categories = excel_data_df['Категория'].unique()
 wine_categories = defaultdict(list)
 wines_description = excel_data_df.to_dict(orient="records")
