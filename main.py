@@ -26,10 +26,10 @@ def calculate_year():
 
 
 def receive_wine_by_categories(filepath):
-    """receive categories from wine.xlsx"""
+    """receive categories from filepath"""
     wine_categories = defaultdict(list)
     excel_wine_data = pandas.read_excel(
-        io="wine.xlsx", na_values="nan", keep_default_na=False
+        io=filepath, na_values="nan", keep_default_na=False
     ).to_dict(orient="records")
     for wine in excel_wine_data:
         wine_categories[wine["Категория"]].append(wine)
