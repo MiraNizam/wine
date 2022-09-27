@@ -1,9 +1,17 @@
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 import datetime
 from collections import defaultdict
+import sys
+import argparse
 
 import pandas
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+
+
+def create_parser():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('filepath', nargs='?', default='wine.xlsx')
+    return parser
 
 
 def agree_year_and_noun():
@@ -37,6 +45,10 @@ def receive_wine_by_categories(filepath):
 
 
 if __name__== "__main__":
+
+    parser = create_parser()
+    namespace = parser.parse_args(sys.argv[1:])
+
     env = Environment(
         loader=FileSystemLoader("."), autoescape=select_autoescape(["html", "xml"])
     )
