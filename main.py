@@ -1,9 +1,7 @@
-import os
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 import datetime
 from collections import defaultdict
 import argparse
-from dotenv import load_dotenv
 
 import pandas
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -14,6 +12,7 @@ def create_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('filepath', nargs='?', default='wine.xlsx', help="path to the file")
     return parser.parse_args()
+
 
 def agree_year_and_noun():
     """return correct name "год/года/лет"""
@@ -49,9 +48,6 @@ if __name__== "__main__":
 
     args = create_parser()
     filepath = args.filepath
-
-    load_dotenv()
-    filepath = os.getenv("WINE_FILE")
 
     env = Environment(
         loader=FileSystemLoader("."), autoescape=select_autoescape(["html", "xml"])
